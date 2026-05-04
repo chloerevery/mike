@@ -241,17 +241,18 @@ def build_home(config: dict) -> None:
     copy_page_images("home")
 
 
-def build_stories(config: dict) -> None:
-    intro = (ROOT / "stories" / "text.md").read_text(encoding="utf-8")
-    stories_path = ROOT / "stories" / "stories.yml"
-    stories = yaml.safe_load(stories_path.read_text(encoding="utf-8")) or []
+def build_work(config: dict) -> None:
+    intro = (ROOT / "work" / "text.md").read_text(encoding="utf-8")
+    items_path = ROOT / "work" / "work.yml"
+    items = yaml.safe_load(items_path.read_text(encoding="utf-8")) or []
 
-    def story_html(s: dict, *, featured: bool = False) -> str:
+    def item_html(s: dict, *, featured: bool = False) -> str:
         kicker = escape(s.get("kicker", "")) if s.get("kicker") else ""
         title = escape(s["title"])
         dek = escape(s.get("dek", ""))
         publication = escape(s.get("publication", ""))
         date = escape(s.get("date", ""))
+        co_byline = escape(s.get("co_byline", "")) if s.get("co_byline") else ""
         link = escape(s["link"])
 
         byline_parts = []
@@ -260,6 +261,7 @@ def build_stories(config: dict) -> None:
         if date:
             byline_parts.append(f'<span class="story-date">{date}</span>')
         byline = " · ".join(byline_parts)
+        co_html = f'<p class="story-co">{co_byline}</p>' if co_byline else ""
 
         kicker_html = f'<p class="story-kicker">{kicker}</p>' if kicker else ""
 
@@ -268,7 +270,7 @@ def build_stories(config: dict) -> None:
         if image:
             image_html = (
                 f'<a class="story-image" href="{link}" target="_blank" rel="noopener">'
-                f'<img src="/images/stories/{escape(image)}" alt="" loading="lazy">'
+                f'<img src="/images/work/{escape(image)}" alt="" loading="lazy">'
                 f'</a>'
             )
 
@@ -280,25 +282,26 @@ def build_stories(config: dict) -> None:
           <h2 class="story-title"><a href="{link}" target="_blank" rel="noopener">{title}</a></h2>
           <p class="story-dek">{dek}</p>
           <p class="story-byline">{byline}</p>
+          {co_html}
         </div>
       </article>"""
 
-    if not stories:
-        list_html = '<p class="stories-empty">More stories coming soon.</p>'
+    if not items:
+        list_html = '<p class="stories-empty">More coming soon.</p>'
     else:
-        featured = next((s for s in stories if s.get("featured")), None)
-        rest = [s for s in stories if s is not featured]
+        featured = next((s for s in items if s.get("featured")), None)
+        rest = [s for s in items if s is not featured]
         parts = []
         if featured:
-            parts.append(story_html(featured, featured=True))
+            parts.append(item_html(featured, featured=True))
         if rest:
-            cards = "\n".join(story_html(s) for s in rest)
+            cards = "\n".join(item_html(s) for s in rest)
             parts.append(f'      <div class="story-grid">\n{cards}\n      </div>')
         list_html = "\n".join(parts)
 
     body = f"""    <section class="page-head">
       <p class="page-kicker">By Michael Harmon</p>
-      <h1 class="page-title">Stories</h1>
+      <h1 class="page-title">Work</h1>
       <div class="page-intro">
 {md_to_html(intro)}
       </div>
@@ -308,8 +311,8 @@ def build_stories(config: dict) -> None:
 {list_html}
     </section>"""
 
-    write_page("/stories", render_page(config, title="Stories", current_path="/stories", body=body))
-    copy_page_images("stories")
+    write_page("/work", render_page(config, title="Work", current_path="/work", body=body))
+    copy_page_images("work")
 
 
 def build_photos(config: dict) -> None:
@@ -376,35 +379,6 @@ def build_photos(config: dict) -> None:
     copy_page_images("photos")
 
 
-def build_newsletter(config: dict) -> None:
-    text = (ROOT / "newsletter" / "text.md").read_text(encoding="utf-8")
-    substack_url = config.get("substack_url", "").strip()
-
-    if substack_url:
-        # Convert "https://name.substack.com" → "https://name.substack.com/embed"
-        embed = substack_url.rstrip("/")
-        if not embed.endswith("/embed"):
-            embed = embed + "/embed"
-        embed_html = f"""    <div class="substack-embed">
-      <iframe src="{escape(embed)}" frameborder="0" scrolling="no"></iframe>
-    </div>"""
-    else:
-        embed_html = '<p class="stories-empty">Subscribe form coming soon.</p>'
-
-    body = f"""    <section class="page-head">
-      <h1 class="page-title">Newsletter</h1>
-      <div class="page-intro">
-{md_to_html(text)}
-      </div>
-    </section>
-
-    <section class="newsletter scroll-fade">
-{embed_html}
-    </section>"""
-
-    write_page("/newsletter", render_page(config, title="Newsletter", current_path="/newsletter", body=body))
-
-
 def build_contact(config: dict) -> None:
     text = (ROOT / "contact" / "text.md").read_text(encoding="utf-8")
     lines = [l.strip() for l in text.strip().splitlines() if l.strip()]
@@ -448,9 +422,8 @@ def main() -> None:
 
     print("Building pages:")
     build_home(config)
-    build_stories(config)
+    build_work(config)
     build_photos(config)
-    build_newsletter(config)
     build_contact(config)
 
     print(f"\nDone. Site built to {SITE}")

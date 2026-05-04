@@ -297,6 +297,15 @@ nav a:hover, nav a.active {
 
 .story-pub { font-weight: 600; color: var(--ink-soft); }
 
+.story-co {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+}
+
 /* Featured: large, image left + text right on desktop */
 .story-featured {
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -305,6 +314,21 @@ nav a:hover, nav a.active {
   padding-bottom: 3rem;
   margin-bottom: 3rem;
   border-bottom: 1px solid var(--rule);
+}
+
+/* Featured without an image: single column, centered, larger headline */
+.story-featured:not(:has(.story-image)) {
+  grid-template-columns: 1fr;
+  text-align: center;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.story-featured:not(:has(.story-image)) .story-dek {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .story-featured .story-title { font-size: clamp(28px, 3.6vw, 44px); }

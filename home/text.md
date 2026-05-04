@@ -2,4 +2,4 @@ I'm Michael Harmon — a writer covering travel, culture, and the overlooked cor
 
 Based in Brooklyn. Always going somewhere.
 
-[Get in touch](/contact) · [Read recent stories](/stories)
+[Get in touch](/contact) · [Read recent work](/work)

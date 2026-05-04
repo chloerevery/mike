@@ -1,23 +1,17 @@
 site_name: Michael Harmon
-tagline: "Writer, The New York Times"
+tagline: "Writer"
 
 # The big serif headline on the homepage hero (NYT-style nameplate)
 home_heading: Michael Harmon
 
 copyright: "© 2026 Michael Harmon"
 
-# Substack subscribe URL — leave blank to show a placeholder on the Newsletter page.
-# When you start a Substack, paste your publication URL here, e.g. https://mikeharmon.substack.com
-substack_url: ""
-
 nav:
   - label: Home
     path: /
-  - label: Stories
-    path: /stories
+  - label: Work
+    path: /work
   - label: Photos
     path: /photos
-  - label: Newsletter
-    path: /newsletter
   - label: Contact
     path: /contact
