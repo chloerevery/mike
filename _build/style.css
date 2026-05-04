@@ -97,7 +97,7 @@ nav a:hover, nav a.active {
 @keyframes page-enter { from { opacity: 0; } to { opacity: 1; } }
 @keyframes page-leave { to { opacity: 0; } }
 
-.scroll-fade { transition: opacity 0.25s linear; }
+.scroll-fade { transition: opacity 0.6s ease-out; }
 
 /* ─── Home: Nameplate ──────────────────────────────────────────────────── */
 
@@ -275,7 +275,7 @@ nav a:hover, nav a.active {
 
 .story-title a { color: var(--ink); }
 
-.story-title a:hover { color: var(--ink-soft); text-decoration: none; }
+.story-title a:hover { color: var(--accent); text-decoration: none; }
 
 .story-dek {
   font-family: var(--serif);

@@ -163,9 +163,12 @@ def render_page(config: dict, *, title: str, current_path: str, body: str) -> st
     }}, {{ passive: true }});
     var io = new IntersectionObserver(function(entries) {{
       entries.forEach(function(e) {{
-        e.target.style.opacity = Math.min(1, e.intersectionRatio * 1.4);
+        if (e.isIntersecting) {{
+          e.target.style.opacity = 1;
+          io.unobserve(e.target);
+        }}
       }});
-    }}, {{ threshold: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1] }});
+    }}, {{ threshold: 0.05 }});
     document.querySelectorAll('.scroll-fade').forEach(function(el) {{
       el.style.opacity = 0;
       io.observe(el);
@@ -307,7 +310,7 @@ def build_work(config: dict) -> None:
       </div>
     </section>
 
-    <section class="stories scroll-fade">
+    <section class="stories">
 {list_html}
     </section>"""
 
@@ -395,7 +398,7 @@ def build_contact(config: dict) -> None:
       <h1 class="page-title">Contact</h1>
     </section>
 
-    <section class="contact-simple scroll-fade">
+    <section class="contact-simple">
 {photo_html}
       <div class="contact-body">
         <p class="contact-email"><a href="mailto:{escape(email)}">{escape(email)}</a></p>
