@@ -1,5 +1,5 @@
-I'm Michael Harmon — a writer covering travel, culture, and the overlooked corners of American life for **The New York Times** and other publications.
+Michael Harmon is a writer and journalist whose work appears in **The New York Times**. He covers travel, culture, transportation, and the quietly extraordinary details of American and international life.
 
-Based in Brooklyn. Always going somewhere.
+His writing has taken him from the misty mountains of Madeira to the launchpads of New York, from ageing locomotives still hauling commuters to the devoted fans who camp outside 30 Rock for a chance to see a live taping. He is drawn to subjects that reward patience and close attention.
 
-[Get in touch](/contact) · [Read recent work](/work)
+He is based in New York.

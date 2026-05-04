@@ -384,30 +384,39 @@ def build_photos(config: dict) -> None:
 
 def build_contact(config: dict) -> None:
     text = (ROOT / "contact" / "text.md").read_text(encoding="utf-8")
-    lines = [l.strip() for l in text.strip().splitlines() if l.strip()]
-    email = lines[0] if lines else ""
-    rest = "\n\n".join(lines[1:])
-    _, images = scan_images(ROOT / "contact")
-    photo = images[0] if images else None
+    email = config.get("contact_email", "").strip()
+    nyt_url = config.get("nyt_profile_url", "").strip()
 
-    photo_html = ""
-    if photo:
-        photo_html = f'      <div class="contact-photo"><img src="/images/contact/{photo}" alt=""></div>'
+    links = []
+    if nyt_url:
+        links.append(
+            f'        <a class="contact-link" href="{escape(nyt_url)}" target="_blank" rel="noopener">'
+            f'<span class="contact-link-label">NYT Profile</span>'
+            f'<span class="contact-link-arrow">&rarr;</span>'
+            f'</a>'
+        )
+    if email:
+        links.append(
+            f'        <a class="contact-link" href="mailto:{escape(email)}">'
+            f'<span class="contact-link-label">Email</span>'
+            f'<span class="contact-link-arrow">&rarr;</span>'
+            f'</a>'
+        )
 
     body = f"""    <section class="page-head">
       <h1 class="page-title">Contact</h1>
     </section>
 
     <section class="contact-simple">
-{photo_html}
-      <div class="contact-body">
-        <p class="contact-email"><a href="mailto:{escape(email)}">{escape(email)}</a></p>
-{md_to_html(rest)}
+      <div class="contact-intro">
+{md_to_html(text)}
+      </div>
+      <div class="contact-links">
+{chr(10).join(links)}
       </div>
     </section>"""
 
     write_page("/contact", render_page(config, title="Contact", current_path="/contact", body=body))
-    copy_page_images("contact")
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────

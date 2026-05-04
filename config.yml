@@ -6,6 +6,9 @@ home_heading: Michael Harmon
 
 copyright: "© 2026 Michael Harmon"
 
+contact_email: mike19b@gmail.com
+nyt_profile_url: https://www.nytimes.com/by/michael-harmon
+
 nav:
   - label: Home
     path: /
