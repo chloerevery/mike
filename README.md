@@ -58,10 +58,13 @@ Use *single stars* for italic.
   publication: The New York Times
   date: November 12, 2026
   link: https://www.nytimes.com/2026/11/12/travel/...
+  image: somewhere.jpg
 ```
 
-4. (Optional) Upload a cover image to `work/images/` and add an `image: filename.jpg` line
+4. Upload a cover image to `work/images/` (any name; reference it in the `image:` field)
 5. **Commit changes**
+
+Every existing story currently uses a placeholder image at `work/images/<slug>.jpg`. To swap a placeholder for a real cover, just upload a new file with the same name (or upload a new image, change the `image:` line in `work.yml` to match, and delete the old placeholder).
 
 ### What each field is for
 

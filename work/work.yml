@@ -12,6 +12,7 @@
   publication: The New York Times
   date: March 15, 2026
   link: https://www.nytimes.com/2026/03/15/nyregion/portal-bridge-open-construction.html
+  image: portal-bridge.jpg
   featured: true
 
 - kicker: New York
@@ -20,6 +21,7 @@
   publication: The New York Times
   date: January 24, 2026
   link: https://www.nytimes.com/2026/01/24/nyregion/saturday-night-live-ticket-line.html
+  image: snl.jpg
 
 - kicker: New York
   title: These Rocketry Hobbyists Are Not Just Playing Around
@@ -28,6 +30,7 @@
   co_byline: with photographs by Bryan Anselm
   date: November 20, 2025
   link: https://www.nytimes.com/2025/11/20/nyregion/rocket-club-new-york.html
+  image: rocket-club.jpg
 
 - kicker: Travel
   title: Chasing Waterfalls in Madeira's Misty Mountains
@@ -35,6 +38,7 @@
   publication: The New York Times
   date: November 4, 2025
   link: https://www.nytimes.com/2025/11/04/travel/madeira-portugal-hiking-waterfalls.html
+  image: madeira.jpg
 
 - kicker: Food
   title: A Rare Chance to Eat Like a Seal
@@ -43,6 +47,7 @@
   co_byline: with photographs by Dolly Faibyshev
   date: July 24, 2025
   link: https://www.nytimes.com/2025/07/24/style/russ-daughters-herring-pairing-hudson-yards-new-york.html
+  image: herring-pairing.jpg
 
 - kicker: New York
   title: Locomotive 4207, on the Rails for 60 Years and Still Hauling Commuters
@@ -50,6 +55,7 @@
   publication: The New York Times
   date: July 9, 2025
   link: https://www.nytimes.com/2025/07/09/nyregion/new-jersey-transit-old-train.html
+  image: locomotive-4207.jpg
 
 - kicker: Travel
   title: Meet the Leopards of YouTube
@@ -57,6 +63,7 @@
   publication: The New York Times
   date: May 12, 2025
   link: https://www.nytimes.com/2025/05/12/travel/meet-the-leopards-of-youtube.html
+  image: youtube-leopards.jpg
 
 - kicker: Travel
   title: 6 Spectacular North American Train Trips
@@ -64,6 +71,7 @@
   publication: The New York Times
   date: March 13, 2025
   link: https://www.nytimes.com/2025/03/13/travel/historic-train-trips-canada-mexico-us.html
+  image: train-trips.jpg
 
 - kicker: Travel
   title: Riding the Rails, Literally, on a Pedal-Powered Bike
@@ -72,6 +80,7 @@
   co_byline: with photographs by Tony Cenicola
   date: October 22, 2024
   link: https://www.nytimes.com/2024/10/22/travel/railbiking-catskills.html
+  image: rail-biking.jpg
 
 - kicker: Travel
   title: "All the Adventure, a Fraction of the Cost: The D.I.Y. Orient Express"
@@ -80,3 +89,4 @@
   co_byline: with photographs by Tony Cenicola
   date: July 5, 2024
   link: https://www.nytimes.com/2024/07/05/travel/budget-orient-express-train.html
+  image: orient-express.jpg
