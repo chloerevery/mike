@@ -308,10 +308,9 @@ def build_contact(config: dict) -> None:
         class="contact-form"
         name="{form_name}"
         method="POST"
-        action="/contact?sent=1"
+        action="/contact/?sent=1"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
-        data-netlify-recaptcha="true"
       >
         <input type="hidden" name="form-name" value="{form_name}">
         <p class="hp" aria-hidden="true"><label>Don't fill this out: <input name="bot-field"></label></p>
@@ -330,8 +329,6 @@ def build_contact(config: dict) -> None:
           <span class="field-label">Message</span>
           <textarea name="message" rows="6" required></textarea>
         </label>
-
-        <div class="recaptcha-slot" data-netlify-recaptcha="true"></div>
 
         <button type="submit" class="contact-submit">Send</button>
       </form>"""

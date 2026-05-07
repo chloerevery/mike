@@ -96,7 +96,7 @@ Replace `about/images/portrait.jpg` with your photo. (Any image whose filename s
 
 The Contact page has a name / email / message form. Submissions go to **Netlify Forms** — log in at [app.netlify.com](https://app.netlify.com), pick the site, click **Forms**, and you'll see them there. You can also have Netlify email each new submission to you (Forms → Notifications).
 
-To turn on the visible "I'm not a robot" reCAPTCHA box, go to your Netlify site's **Forms** settings and enable reCAPTCHA. The form already includes a hidden honeypot field that catches a lot of basic spam without any setup.
+The form has a hidden honeypot field that filters most basic spam, and Netlify's built-in Akismet check is on by default. If spam still gets through, you can turn on a visible "I'm not a robot" reCAPTCHA in your Netlify site's **Forms** settings (no code change needed on this end).
 
 ---
 
