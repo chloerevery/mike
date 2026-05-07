@@ -1,1 +1,1 @@
-For inquiries, pitches, or correspondence.
+Drop a line.

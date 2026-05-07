@@ -2,7 +2,7 @@
 # Newest pieces appear first on the page.
 #
 # Required:    title, dek, link, date
-# Optional:    kicker, publication, co_byline, image, featured
+# Optional:    kicker, publication, image, featured
 #
 # Watch out: if any text contains a colon, wrap the whole value in double quotes.
 
@@ -27,7 +27,6 @@
   title: These Rocketry Hobbyists Are Not Just Playing Around
   dek: At a rocketry club's monthly launch, some of the projectiles flew as high as 4,500 feet, carrying onboard cameras, GPS trackers and altimeter-activated parachutes.
   publication: The New York Times
-  co_byline: with photographs by Bryan Anselm
   date: November 20, 2025
   link: https://www.nytimes.com/2025/11/20/nyregion/rocket-club-new-york.html
   image: rocket-club.jpg
@@ -44,7 +43,6 @@
   title: A Rare Chance to Eat Like a Seal
   dek: Devoted fish fans converged in Hudson Yards for the Russ & Daughters Herring Pairing party, a New York tradition that returned this week after a six-year hiatus.
   publication: The New York Times
-  co_byline: with photographs by Dolly Faibyshev
   date: July 24, 2025
   link: https://www.nytimes.com/2025/07/24/style/russ-daughters-herring-pairing-hudson-yards-new-york.html
   image: herring-pairing.jpg
@@ -77,7 +75,6 @@
   title: Riding the Rails, Literally, on a Pedal-Powered Bike
   dek: Rail-biking uses specially designed vehicles that are pedaled along disused railway lines. It's easy and fun and uses existing tracks for recreation. One writer gave it a try in the Catskills.
   publication: The New York Times
-  co_byline: with photographs by Tony Cenicola
   date: October 22, 2024
   link: https://www.nytimes.com/2024/10/22/travel/railbiking-catskills.html
   image: rail-biking.jpg
@@ -86,7 +83,6 @@
   title: "All the Adventure, a Fraction of the Cost: The D.I.Y. Orient Express"
   dek: The luxury version of this classic train journey costs almost $50,000, but for $1,000 or less, you can book the rail trip from Paris to Istanbul yourself.
   publication: The New York Times
-  co_byline: with photographs by Tony Cenicola
   date: July 5, 2024
   link: https://www.nytimes.com/2024/07/05/travel/budget-orient-express-train.html
   image: orient-express.jpg

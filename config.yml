@@ -1,20 +1,19 @@
 site_name: Michael Harmon
 tagline: "Writer"
 
-# The big serif headline on the homepage hero (NYT-style nameplate)
+# The big serif headline on the homepage / writing page (NYT-style nameplate)
 home_heading: Michael Harmon
 
 copyright: "© 2026 Michael Harmon"
 
-contact_email: mike19b@gmail.com
-nyt_profile_url: https://www.nytimes.com/by/michael-harmon
+# Where the contact form sends. Configure spam protection (reCAPTCHA / honeypot)
+# in the Netlify dashboard under Forms.
+contact_form_name: contact
 
 nav:
-  - label: Home
+  - label: Writing
     path: /
-  - label: Work
-    path: /work
-  - label: Photos
-    path: /photos
+  - label: About
+    path: /about
   - label: Contact
     path: /contact

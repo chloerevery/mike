@@ -2,7 +2,7 @@
 """
 Build script for Michael Harmon's site.
 
-Reads content from page folders (home/, stories/, etc.) and generates
+Reads content from page folders (writing/, about/, contact/) and generates
 a static HTML site into _site/.
 
 Run from repo root:  python3 _build/build.py
@@ -40,6 +40,11 @@ def md_inline(text: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link_repl, text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", text)
+    # &rarr; etc. were escaped by html.escape above; un-escape the &amp; back to &
+    # so HTML entities written in markdown render as glyphs.
+    text = text.replace("&amp;rarr;", "&rarr;").replace("&amp;larr;", "&larr;")
+    text = text.replace("&amp;mdash;", "&mdash;").replace("&amp;ndash;", "&ndash;")
+    text = text.replace("&amp;hellip;", "&hellip;").replace("&amp;amp;", "&amp;")
     return text
 
 
@@ -51,27 +56,13 @@ def md_to_html(md: str) -> str:
 
 # ─── Image discovery ─────────────────────────────────────────────────────────
 
-def scan_images(page_dir: Path) -> tuple[str | None, list[str]]:
-    """
-    Scan <page_dir>/images/ for image files.
-    Returns (hero_filename, [sorted grid filenames]).
-    hero.* is extracted separately and not included in the grid.
-    """
+def scan_images(page_dir: Path) -> list[str]:
     img_dir = page_dir / "images"
     if not img_dir.is_dir():
-        return None, []
-
-    hero = None
-    grid = []
-    for f in sorted(img_dir.iterdir()):
-        if f.suffix.lower() not in IMAGE_EXTS:
-            continue
-        if f.stem.lower() == "hero":
-            hero = f.name
-        else:
-            grid.append(f.name)
-
-    return hero, grid
+        return []
+    return sorted(
+        f.name for f in img_dir.iterdir() if f.suffix.lower() in IMAGE_EXTS
+    )
 
 
 def copy_page_images(slug: str) -> None:
@@ -201,10 +192,11 @@ def write_page(path: str, html: str) -> None:
 
 # ─── Page builders ───────────────────────────────────────────────────────────
 
-def build_home(config: dict) -> None:
-    text = (ROOT / "home" / "text.md").read_text(encoding="utf-8")
-    hero, others = scan_images(ROOT / "home")
-    portrait = next((f for f in others if f.lower().startswith("portrait")), None)
+def build_writing(config: dict) -> None:
+    """The Writing page is the homepage. Big nameplate + list of pieces."""
+    intro = (ROOT / "writing" / "text.md").read_text(encoding="utf-8")
+    items_path = ROOT / "writing" / "writing.yml"
+    items = yaml.safe_load(items_path.read_text(encoding="utf-8")) or []
 
     heading = escape(config.get("home_heading", config["site_name"]))
     tagline = escape(config.get("tagline", ""))
@@ -215,47 +207,12 @@ def build_home(config: dict) -> None:
       {tagline_html}
     </section>"""
 
-    hero_html = ""
-    if hero:
-        hero_html = f"""    <div class="hero home-hero">
-      <img src="/images/home/{hero}" alt="">
-    </div>"""
-
-    portrait_html = ""
-    if portrait:
-        portrait_html = (
-            f'        <div class="portrait">'
-            f'<img src="/images/home/{portrait}" alt="Portrait of {escape(config["site_name"])}">'
-            f'</div>'
-        )
-
-    body = f"""{nameplate}
-{hero_html}
-    <section class="bio-band scroll-fade">
-      <div class="bio-inner">
-{portrait_html}
-        <div class="bio-text">
-{md_to_html(text)}
-        </div>
-      </div>
-    </section>"""
-
-    write_page("/", render_page(config, title=config["site_name"], current_path="/", body=body))
-    copy_page_images("home")
-
-
-def build_work(config: dict) -> None:
-    intro = (ROOT / "work" / "text.md").read_text(encoding="utf-8")
-    items_path = ROOT / "work" / "work.yml"
-    items = yaml.safe_load(items_path.read_text(encoding="utf-8")) or []
-
     def item_html(s: dict, *, featured: bool = False) -> str:
         kicker = escape(s.get("kicker", "")) if s.get("kicker") else ""
         title = escape(s["title"])
         dek = escape(s.get("dek", ""))
         publication = escape(s.get("publication", ""))
         date = escape(s.get("date", ""))
-        co_byline = escape(s.get("co_byline", "")) if s.get("co_byline") else ""
         link = escape(s["link"])
 
         byline_parts = []
@@ -264,7 +221,6 @@ def build_work(config: dict) -> None:
         if date:
             byline_parts.append(f'<span class="story-date">{date}</span>')
         byline = " · ".join(byline_parts)
-        co_html = f'<p class="story-co">{co_byline}</p>' if co_byline else ""
 
         kicker_html = f'<p class="story-kicker">{kicker}</p>' if kicker else ""
 
@@ -273,7 +229,7 @@ def build_work(config: dict) -> None:
         if image:
             image_html = (
                 f'<a class="story-image" href="{link}" target="_blank" rel="noopener">'
-                f'<img src="/images/work/{escape(image)}" alt="" loading="lazy">'
+                f'<img src="/images/writing/{escape(image)}" alt="" loading="lazy">'
                 f'</a>'
             )
 
@@ -285,7 +241,6 @@ def build_work(config: dict) -> None:
           <h2 class="story-title"><a href="{link}" target="_blank" rel="noopener">{title}</a></h2>
           <p class="story-dek">{dek}</p>
           <p class="story-byline">{byline}</p>
-          {co_html}
         </div>
       </article>"""
 
@@ -302,11 +257,12 @@ def build_work(config: dict) -> None:
             parts.append(f'      <div class="story-grid">\n{cards}\n      </div>')
         list_html = "\n".join(parts)
 
-    body = f"""    <section class="page-head">
-      <p class="page-kicker">By Michael Harmon</p>
-      <h1 class="page-title">Work</h1>
+    intro_html = md_to_html(intro)
+    body = f"""{nameplate}
+
+    <section class="writing-intro">
       <div class="page-intro">
-{md_to_html(intro)}
+{intro_html}
       </div>
     </section>
 
@@ -314,94 +270,71 @@ def build_work(config: dict) -> None:
 {list_html}
     </section>"""
 
-    write_page("/work", render_page(config, title="Work", current_path="/work", body=body))
-    copy_page_images("work")
+    write_page("/", render_page(config, title=config["site_name"], current_path="/", body=body))
+    copy_page_images("writing")
 
 
-def build_photos(config: dict) -> None:
-    intro = (ROOT / "photos" / "text.md").read_text(encoding="utf-8")
-    _, grid = scan_images(ROOT / "photos")
+def build_about(config: dict) -> None:
+    text = (ROOT / "about" / "text.md").read_text(encoding="utf-8")
+    images = scan_images(ROOT / "about")
+    portrait = next((f for f in images if f.lower().startswith("portrait")), None)
 
-    if grid:
-        items = [
-            f'      <a href="/images/photos/{f}" class="grid-item">'
-            f'<img src="/images/photos/{f}" alt="" loading="lazy"></a>'
-            for f in grid
-        ]
-        grid_html = '    <div class="image-grid">\n' + '\n'.join(items) + '\n    </div>'
-    else:
-        grid_html = '    <p class="stories-empty">Photographs coming soon.</p>'
+    portrait_html = ""
+    if portrait:
+        portrait_html = (
+            f'        <div class="portrait">'
+            f'<img src="/images/about/{portrait}" alt="Portrait of {escape(config["site_name"])}">'
+            f'</div>'
+        )
 
-    body = f"""    <section class="page-head">
-      <h1 class="page-title">Photos</h1>
-      <div class="page-intro">
-{md_to_html(intro)}
+    body = f"""    <section class="about-band">
+      <div class="about-inner">
+{portrait_html}
+        <div class="bio-text">
+{md_to_html(text)}
+        </div>
       </div>
-    </section>
-{grid_html}
-    <div class="lightbox" hidden>
-      <button class="lb-close" aria-label="Close">&times;</button>
-      <button class="lb-prev" aria-label="Previous">&lsaquo;</button>
-      <div class="lb-image"><img src="" alt=""></div>
-      <button class="lb-next" aria-label="Next">&rsaquo;</button>
-    </div>
-    <script>
-    (function() {{
-      var items = document.querySelectorAll('.grid-item');
-      if (!items.length) return;
-      var lb = document.querySelector('.lightbox');
-      var img = lb.querySelector('.lb-image img');
-      var idx = 0;
-      function show(i) {{
-        idx = (i + items.length) % items.length;
-        img.src = items[idx].href;
-        lb.hidden = false;
-        document.body.style.overflow = 'hidden';
-      }}
-      function close() {{
-        lb.hidden = true;
-        document.body.style.overflow = '';
-      }}
-      items.forEach(function(a, i) {{
-        a.addEventListener('click', function(e) {{ e.preventDefault(); show(i); }});
-      }});
-      lb.querySelector('.lb-close').addEventListener('click', close);
-      lb.querySelector('.lb-prev').addEventListener('click', function() {{ show(idx - 1); }});
-      lb.querySelector('.lb-next').addEventListener('click', function() {{ show(idx + 1); }});
-      lb.addEventListener('click', function(e) {{ if (e.target === lb) close(); }});
-      document.addEventListener('keydown', function(e) {{
-        if (lb.hidden) return;
-        if (e.key === 'Escape') close();
-        else if (e.key === 'ArrowLeft') show(idx - 1);
-        else if (e.key === 'ArrowRight') show(idx + 1);
-      }});
-    }})();
-    </script>"""
+    </section>"""
 
-    write_page("/photos", render_page(config, title="Photos", current_path="/photos", body=body))
-    copy_page_images("photos")
+    write_page("/about", render_page(config, title="About", current_path="/about", body=body))
+    copy_page_images("about")
 
 
 def build_contact(config: dict) -> None:
     text = (ROOT / "contact" / "text.md").read_text(encoding="utf-8")
-    email = config.get("contact_email", "").strip()
-    nyt_url = config.get("nyt_profile_url", "").strip()
+    form_name = escape(config.get("contact_form_name", "contact"))
 
-    links = []
-    if nyt_url:
-        links.append(
-            f'        <a class="contact-link" href="{escape(nyt_url)}" target="_blank" rel="noopener">'
-            f'<span class="contact-link-label">NYT Profile</span>'
-            f'<span class="contact-link-arrow">&rarr;</span>'
-            f'</a>'
-        )
-    if email:
-        links.append(
-            f'        <a class="contact-link" href="mailto:{escape(email)}">'
-            f'<span class="contact-link-label">Email</span>'
-            f'<span class="contact-link-arrow">&rarr;</span>'
-            f'</a>'
-        )
+    form_html = f"""      <form
+        class="contact-form"
+        name="{form_name}"
+        method="POST"
+        action="/contact?sent=1"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        data-netlify-recaptcha="true"
+      >
+        <input type="hidden" name="form-name" value="{form_name}">
+        <p class="hp" aria-hidden="true"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+        <label class="field">
+          <span class="field-label">Name</span>
+          <input type="text" name="name" required autocomplete="name">
+        </label>
+
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input type="email" name="email" required autocomplete="email">
+        </label>
+
+        <label class="field">
+          <span class="field-label">Message</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+
+        <div class="recaptcha-slot" data-netlify-recaptcha="true"></div>
+
+        <button type="submit" class="contact-submit">Send</button>
+      </form>"""
 
     body = f"""    <section class="page-head">
       <h1 class="page-title">Contact</h1>
@@ -411,10 +344,25 @@ def build_contact(config: dict) -> None:
       <div class="contact-intro">
 {md_to_html(text)}
       </div>
-      <div class="contact-links">
-{chr(10).join(links)}
+
+      <div class="contact-thanks" hidden>
+        <p>Thanks — your message is on its way. I'll be in touch.</p>
       </div>
-    </section>"""
+
+{form_html}
+    </section>
+
+    <script>
+    (function() {{
+      var params = new URLSearchParams(location.search);
+      if (params.get('sent') === '1') {{
+        var form = document.querySelector('.contact-form');
+        var thanks = document.querySelector('.contact-thanks');
+        if (form) form.hidden = true;
+        if (thanks) thanks.hidden = false;
+      }}
+    }})();
+    </script>"""
 
     write_page("/contact", render_page(config, title="Contact", current_path="/contact", body=body))
 
@@ -433,9 +381,8 @@ def main() -> None:
     shutil.copy2(BUILD / "style.css", SITE / "style.css")
 
     print("Building pages:")
-    build_home(config)
-    build_work(config)
-    build_photos(config)
+    build_writing(config)
+    build_about(config)
     build_contact(config)
 
     print(f"\nDone. Site built to {SITE}")

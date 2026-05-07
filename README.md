@@ -12,10 +12,9 @@ Each page on the site has its own folder:
 
 | Folder | Page | What's in it |
 |---|---|---|
-| `home/` | Homepage | Bio + hero banner + portrait photo |
-| `work/` | Work | Intro text + list of articles in `work.yml` |
-| `photos/` | Photos | Intro text + image grid |
-| `contact/` | Contact | Email + optional photo |
+| `writing/` | Homepage (Writing) | Intro text + list of articles in `writing.yml` |
+| `about/` | About | Bio + portrait photo |
+| `contact/` | Contact | Intro text above the contact form |
 
 Inside each folder:
 - **`text.md`** — the words on that page
@@ -25,7 +24,7 @@ Inside each folder:
 
 ## Editing text
 
-1. Click into a page folder (e.g. `home/`)
+1. Click into a page folder (e.g. `writing/`)
 2. Click `text.md`
 3. Click the pencil icon (top right) to edit
 4. Make your changes
@@ -45,26 +44,26 @@ Use *single stars* for italic.
 
 ---
 
-## Adding a new piece to Work (the main thing you'll do)
+## Adding a new piece (the main thing you'll do)
 
-1. Open `work/work.yml`
+1. Open `writing/writing.yml`
 2. Click the pencil icon to edit
 3. Add a new block at the **top** of the list (newest pieces appear first):
 
 ```yaml
 - kicker: Travel
   title: A Headline About Somewhere Far Away
-  dek: A one- or two-sentence summary of what the piece is about, in the same voice as an NYT dek.
+  dek: A one- or two-sentence summary of what the piece is about.
   publication: The New York Times
   date: November 12, 2026
   link: https://www.nytimes.com/2026/11/12/travel/...
   image: somewhere.jpg
 ```
 
-4. Upload a cover image to `work/images/` (any name; reference it in the `image:` field)
+4. Upload a cover image to `writing/images/` (any name; reference it in the `image:` field)
 5. **Commit changes**
 
-Every existing story currently uses a placeholder image at `work/images/<slug>.jpg`. To swap a placeholder for a real cover, just upload a new file with the same name (or upload a new image, change the `image:` line in `work.yml` to match, and delete the old placeholder).
+To swap a placeholder cover for a real one, upload a new file with the same name (or upload a new image, change the `image:` line in `writing.yml` to match, and delete the old placeholder).
 
 ### What each field is for
 
@@ -74,8 +73,7 @@ Every existing story currently uses a placeholder image at `work/images/<slug>.j
 - `publication` — usually "The New York Times"
 - `date` — when it was published
 - `link` — the URL to the article
-- `co_byline` — *(optional)* a credit line, e.g. `with photographs by Tony Cenicola`
-- `image` — *(optional)* filename of a cover image in `work/images/`
+- `image` — *(optional)* filename of a cover image in `writing/images/`
 - `featured: true` — add this line to make a piece the big one at the top of the page; only one piece should be featured at a time
 
 ### Watch out
@@ -88,21 +86,17 @@ title: "After the Flood: A Town Rebuilds"
 
 ---
 
-## Adding photos to the Photos page
+## Changing the portrait on the About page
 
-1. Open `photos/images/`
-2. Click **Add file → Upload files**
-3. Drag in your photos
-4. **Commit changes**
-
-Photos are sorted by filename. Name them `01.jpg`, `02.jpg`, `03.jpg`... to control the order.
+Replace `about/images/portrait.jpg` with your photo. (Any image whose filename starts with `portrait` works — `.jpg`, `.png`, etc.)
 
 ---
 
-## Changing the homepage hero or portrait
+## The Contact form
 
-- Hero banner: replace `home/images/hero.jpg` with your image (any image named `hero.*` works — `.jpg`, `.png`, etc.)
-- Portrait: replace `home/images/portrait.jpg` with your photo
+The Contact page has a name / email / message form. Submissions go to **Netlify Forms** — log in at [app.netlify.com](https://app.netlify.com), pick the site, click **Forms**, and you'll see them there. You can also have Netlify email each new submission to you (Forms → Notifications).
+
+To turn on the visible "I'm not a robot" reCAPTCHA box, go to your Netlify site's **Forms** settings and enable reCAPTCHA. The form already includes a hidden honeypot field that catches a lot of basic spam without any setup.
 
 ---
 
@@ -121,5 +115,5 @@ Edit `config.yml` to change:
 If the site stops updating after a change:
 
 1. Go to [app.netlify.com](https://app.netlify.com) and check the latest deploy — it shows an error message if the build failed
-2. The most common cause is a typo in `work.yml` — usually a missing colon, a missing quote around a title with a colon in it, or wrong indentation
+2. The most common cause is a typo in `writing.yml` — usually a missing colon, a missing quote around a title with a colon in it, or wrong indentation
 3. Every change is saved in git history, so nothing is ever lost — you can always click **History** on any file to see previous versions and restore them
