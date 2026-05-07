@@ -304,16 +304,9 @@ def build_contact(config: dict) -> None:
     text = (ROOT / "contact" / "text.md").read_text(encoding="utf-8")
     form_name = escape(config.get("contact_form_name", "contact"))
 
-    form_html = f"""      <form
-        class="contact-form"
-        name="{form_name}"
-        method="POST"
-        action="/contact/?sent=1"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-      >
+    form_html = f"""      <form class="contact-form" name="{form_name}" method="POST" netlify netlify-honeypot="bot-field" action="/contact/?sent=1">
         <input type="hidden" name="form-name" value="{form_name}">
-        <p class="hp" aria-hidden="true"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <input type="hidden" name="bot-field" class="hp" tabindex="-1" autocomplete="off">
 
         <label class="field">
           <span class="field-label">Name</span>
