@@ -287,12 +287,13 @@ nav a:hover, nav a.active {
   display: block;
   overflow: hidden;
   background: var(--rule-soft);
+  aspect-ratio: 16 / 10;
 }
 
 .story-image img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -390,7 +391,7 @@ nav a:hover, nav a.active {
 .story-featured .story-title { font-size: clamp(28px, 3.6vw, 44px); }
 .story-featured .story-dek { font-size: 19px; }
 
-.story-featured .story-image img { aspect-ratio: 4 / 3; }
+.story-featured .story-image { aspect-ratio: 4 / 3; }
 
 /* Grid of follow-up stories: 3 columns on wide, 2 on medium, 1 on narrow */
 .story-grid {
