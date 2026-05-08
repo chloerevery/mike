@@ -1,4 +1,4 @@
-# Michael Harmon's website
+# Michael's website
 
 This repo holds the content for the site. Every time you change a file here, Netlify automatically rebuilds and redeploys (about a minute).
 
