@@ -6,7 +6,7 @@
 #
 # Watch out: if any text contains a colon, wrap the whole value in double quotes.
 
-- kicker: New York
+- kicker: Metro
   title: "Commuters, Rejoice! The New Portal Bridge Is Ready for Riders."
   dek: The old Portal Bridge disrupted rail commutes in New Jersey for decades, frequently getting stuck when it swung to let boat traffic pass. Now a new bridge is open to the public.
   publication: The New York Times
@@ -15,7 +15,7 @@
   image: portal-bridge.jpg
   featured: true
 
-- kicker: New York
+- kicker: Metro
   title: "As They Wait (and Wait) for 'S.N.L.' Tickets, These Fans Become Friends"
   dek: "Getting a seat inside the studio at 'Saturday Night Live' involves persistence and good humor. Some people build their weekends around it."
   publication: The New York Times
@@ -23,7 +23,7 @@
   link: https://www.nytimes.com/2026/01/24/nyregion/saturday-night-live-ticket-line.html
   image: snl.jpg
 
-- kicker: New York
+- kicker: Metro
   title: These Rocketry Hobbyists Are Not Just Playing Around
   dek: At a rocketry club's monthly launch, some of the projectiles flew as high as 4,500 feet, carrying onboard cameras, GPS trackers and altimeter-activated parachutes.
   publication: The New York Times
@@ -40,7 +40,7 @@
   link: https://www.nytimes.com/2025/11/04/travel/madeira-portugal-hiking-waterfalls.html
   image: madeira.jpg
 
-- kicker: Food
+- kicker: Styles
   title: A Rare Chance to Eat Like a Seal
   dek: Devoted fish fans converged in Hudson Yards for the Russ & Daughters Herring Pairing party, a New York tradition that returned this week after a six-year hiatus.
   publication: The New York Times
@@ -48,7 +48,7 @@
   link: https://www.nytimes.com/2025/07/24/style/russ-daughters-herring-pairing-hudson-yards-new-york.html
   image: herring-pairing.jpg
 
-- kicker: New York
+- kicker: Metro
   title: Locomotive 4207, on the Rails for 60 Years and Still Hauling Commuters
   dek: New Jersey Transit relies on more than 20 old-school diesel engines, including the United States' oldest locomotive in regular passenger service.
   publication: The New York Times
