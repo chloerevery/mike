@@ -74,6 +74,7 @@ To swap a placeholder cover for a real one, upload a new file with the same name
 - `date` — when it was published
 - `link` — the URL to the article
 - `image` — *(optional)* filename of a cover image in `writing/images/`
+- `focus` — *(optional)* where to crop the cover image. Default is `center` (middle of the photo). Use `top` to keep heads from getting cut off, `bottom` to favor the bottom of the photo, or precise values like `50% 30%` (horizontal then vertical, where 0% is left/top and 100% is right/bottom).
 - `featured: true` — add this line to make a piece the big one at the top of the page; only one piece should be featured at a time
 
 ### Watch out

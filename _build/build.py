@@ -225,11 +225,13 @@ def build_writing(config: dict) -> None:
         kicker_html = f'<p class="story-kicker">{kicker}</p>' if kicker else ""
 
         image = s.get("image")
+        focus = s.get("focus")
         image_html = ""
         if image:
+            style_attr = f' style="object-position: {escape(str(focus))}"' if focus else ""
             image_html = (
                 f'<a class="story-image" href="{link}" target="_blank" rel="noopener">'
-                f'<img src="/images/writing/{escape(image)}" alt="" loading="lazy">'
+                f'<img src="/images/writing/{escape(image)}" alt="" loading="lazy"{style_attr}>'
                 f'</a>'
             )
 
