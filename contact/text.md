@@ -1,1 +1,1 @@
-Drop a line.
+Send me a postcard, drop me a line!
