@@ -30,7 +30,7 @@
   date: November 20, 2025
   link: https://www.nytimes.com/2025/11/20/nyregion/rocket-club-new-york.html
   image: rocket-club.jpg
-  focus: top
+  focus: 50% 25%
 
 - kicker: Travel
   title: Chasing Waterfalls in Madeira's Misty Mountains
@@ -64,7 +64,7 @@
   date: May 12, 2025
   link: https://www.nytimes.com/2025/05/12/travel/meet-the-leopards-of-youtube.html
   image: youtube-leopards.jpg
-  focus: top
+  focus: 50% 25%
 
 - kicker: Travel
   title: 6 Spectacular North American Train Trips
