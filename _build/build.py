@@ -109,6 +109,7 @@ def render_seo_head(config: dict, *, full_title: str, current_path: str) -> str:
     description = seo.get("description") or ""
     og_image = seo.get("og_image") or ""
     same_as = seo.get("same_as") or []
+    gsv = seo.get("google_site_verification") or ""
 
     if not (base_url or description):
         return ""
