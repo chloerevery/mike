@@ -6,6 +6,7 @@ seo:
      description: "Michael Harmon is a writer and journalist whose work appears in The New York Times."
      base_url: "https://mghwrites.com"
      og_image: "/images/about/portrait.jpg"   # reuse the existing headshot
+     google_site_verification: "IqMR_X51VRfrHDsDi8mAjvtTZlCJqbEhaeduKFbQ79g"
      same_as:
        - https://www.nytimes.com/by/michael-harmon
        - https://muckrack.com/michael-harmon-2
