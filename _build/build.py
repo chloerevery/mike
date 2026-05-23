@@ -122,6 +122,8 @@ def render_seo_head(config: dict, *, full_title: str, current_path: str) -> str:
         og_image = base_url + og_image
 
     lines: list[str] = []
+    if gsv:
+        lines.append(f'<meta name="google-site-verification" content="{escape(gsv)}">')
     if description:
         lines.append(f'<meta name="description" content="{escape(description)}">')
     if canonical:
